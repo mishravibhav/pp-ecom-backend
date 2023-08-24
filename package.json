@@ -1,0 +1,23 @@
+{
+  "name": "ecom-backend",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start:prod": "NODE_ENV=production nodemon --max-old-space-size=6000 server.js --watch",
+    "start:dev": "NODE_ENV=development nodemon --max-old-space-size=6000 server.js --watch",
+    "build": "",
+    "test": ""
+  },
+  "author": "VibhavMishra",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.4",
+    "path": "^0.12.7",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
+  }
+}
