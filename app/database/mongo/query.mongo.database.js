@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-
-
+var jwt = require("jsonwebtoken");
+var Config = require('../../config/app.config')
 const Allusers = require('./connection.mongo.database')
 
 const createUserdocument = async (userPayload) => {
@@ -23,18 +23,12 @@ const createUserdocument = async (userPayload) => {
 }
 
 
-const getUserdocument = async (param, fields) => {
+const getUserdocument = async (_id, fields) => {
    return new Promise(async(resolve,reject)=>{
     try {
-        let _id = param._id
-        const account = await Allusers.findOne({ _id });
-        if (!account || account.secretKey!=param.key) {
-            return { success: false, msg: "invalid Credentials" }
-        } else {
-            var result = await Allusers.find({}).where(param).select(fields)
+        var result = await Allusers.find({}).where({_id:_id}).select(fields)
 
         resolve ({success:true,response:result})
-        }
         
     } catch (error) {
         reject ({ success: false, response: error })
@@ -68,12 +62,30 @@ const login = async(params)=> {
         console.log("params",params)
         let _id = params._id
         let Pass = params.password
-        const account = await Allusers.findOne({ _id });
+        let account = await Allusers.findOne({ _id });
             if (!bcrypt.compareSync(Pass, account.password)) {
                 console.log("invalid Credentials")
-                reject ({ success: false, msg: "invalid Credentials" })
+                reject ({ success: false, response: "invalid Credentials" })
             }
-            resolve( { success: true, response:account })
+
+            var token = jwt.sign(
+                { _id: _id, _id },
+                Config.secretkey,
+                {
+                    expiresIn: "12h",
+                }
+            );
+        
+            const loginres = await updateUserdocument(_id, {secretKey:token}).then((res)=>{
+                return {success:true,response:res}
+            }).catch((err)=>{
+                return {success:false,response:err}
+            })
+            if(!loginres.success){
+                reject({ success: false, response: error })
+            }
+
+            resolve( { success: true, token:token })
     } catch (error) {
         console.log(error)
 
@@ -82,6 +94,19 @@ const login = async(params)=> {
     })
     
 }
+
+const validateToken = async (_id) => {
+    return new Promise(async(resolve,reject)=>{
+     try {
+         var result = await Allusers.find({}).where({_id:_id}).select(["_id","name","email","secretKey"])
+ 
+         resolve ({success:true,response:result})
+         
+     } catch (error) {
+         reject ({ success: false, response: error })
+     }
+    })
+ }
 
 const deleteUserdocument = async(params)=>{
     return new Promise(async(resolve,reject)=>{
@@ -99,5 +124,6 @@ module.exports = {
     getUserdocument,
     updateUserdocument,
     login,
+    validateToken,
     deleteUserdocument
 }

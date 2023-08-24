@@ -14,6 +14,7 @@ module.exports = {
         },
         mongodb:{
             url:"mongodb://localhost:27017/ecom"
-        }
+        },
     },
+    secretkey:"secretkey"
 }
