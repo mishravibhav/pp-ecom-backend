@@ -95,10 +95,10 @@ const login = async(params)=> {
     
 }
 
-const validateToken = async (_id) => {
+const validateToken = async (_id,token) => {
     return new Promise(async(resolve,reject)=>{
      try {
-         var result = await Allusers.find({}).where({_id:_id}).select(["_id","name","email","secretKey"])
+         var result = await Allusers.find({}).where({_id:_id,secretKey:token}).select(["_id","name","email","secretKey"])
  
          resolve ({success:true,response:result})
          

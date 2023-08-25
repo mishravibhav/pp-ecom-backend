@@ -29,16 +29,16 @@ exports.login = async (req, res, next) => {
 
     console.log(dbRes)
     if(!dbRes.success) return res.status(400).json(dbRes);
-
+     res.cookie("vib-token",dbRes.token)
     res.status(200).json(dbRes);
 
 }
 
 exports.overview = async (req, res, next) => {
     // console.log(req)
-    if(!req.query._id) return res.status(400).json({success: false, response:"_id is missing in query params"});
+    const _id = req.user._id
 
-    const dbRes = await mongodb.getUserdocument(req.query._id,["_id","name","email","access","status","access","created_date","updated_date"]).then((res)=>{
+    const dbRes = await mongodb.getUserdocument(_id,["_id","name","email","access","status","access","created_date","updated_date"]).then((res)=>{
         return res
     }).catch((err)=>{
         return err
