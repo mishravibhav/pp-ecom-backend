@@ -1,4 +1,4 @@
-const pool = require('./connection.database')
+const pool = require('./connection.mysql.database')
 
 const query = async (sql)=>{
  return new Promise(async(resolve,reject)=>{

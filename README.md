@@ -18,7 +18,7 @@ curl --location 'http://localhost:3000/auth/register' \
 }'
 ```
 
-- /auth/login
+- /auth/login : POST
 ```
 curl --location 'http://localhost:3000/auth/login' \
 --header 'Content-Type: application/json' \
@@ -29,7 +29,7 @@ curl --location 'http://localhost:3000/auth/login' \
 }'
 ```
 
-- /user/overview
+- /user/overview : GET
 ```
 curl --location 'http://localhost:3000/user/overview' \
 --header 'Cookie: vib-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJ2aWJoYXZAZ21haWwuY29tIiwiaWF0IjoxNjkyOTU1NzU5LCJleHAiOjE2OTI5OTg5NTl9.bFiLhckHCtYY52rVsa1IRg_pdCnUugvP33Wk3jf0qao'
