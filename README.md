@@ -1,25 +1,14 @@
-# RESTful API Node Server Boilerplate
-
-
-By running a single command, you will get a production-ready Node.js app installed and fully configured on your machine. The app comes with many built-in features, such as authentication using JWT, request validation, unit and integration tests, continuous integration, docker support, API documentation, pagination, etc. For more details, check the features list below.
-
-
 ## Manual Installation
-
-If you would still prefer to do the installation manually, follow these steps:
-
 
 Install the dependencies:
 
 ```bash
-yarn install
+npm install
 ```
 
 Set the environment variables:
 
 ```bash
-cp .env.example .env
-
 # open .env and modify the environment variables (if needed)
 ```
 
@@ -60,7 +49,7 @@ npm run start:dev
 Running in production:
 
 ```bash
-yarn run start:prod
+npm run start:prod
 ```
 
 Testing:
@@ -139,12 +128,12 @@ List of available routes:
 
 
 
-**/health:GET**:\
+**GET:/health**:\
 ```
 curl --location 'http://localhost:3000/health'
 ```
 
-**/auth/register:POST**\
+**POST:/auth/register**\
 ```
 curl --location 'http://localhost:3000/auth/register' \
 --header 'Content-Type: application/json' \
@@ -156,7 +145,7 @@ curl --location 'http://localhost:3000/auth/register' \
 }'
 ```
 
-**/auth/login:POST**\
+**POST:/auth/login**\
 ```
 curl --location 'http://localhost:3000/auth/login' \
 --header 'Content-Type: application/json' \
@@ -167,7 +156,7 @@ curl --location 'http://localhost:3000/auth/login' \
 }'
 ```
 
-**/user/overview:GET**\
+**GET:/user/overview**\
 ```
 curl --location 'http://localhost:3000/user/overview' \
 --header 'Cookie: vib-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJ2aWJoYXZAZ21haWwuY29tIiwiaWF0IjoxNjkyOTU1NzU5LCJleHAiOjE2OTI5OTg5NTl9.bFiLhckHCtYY52rVsa1IRg_pdCnUugvP33Wk3jf0qao'
