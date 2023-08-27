@@ -88,6 +88,19 @@ The environment variables can be found and modified in the `.env` file. They com
 # Port number
 PORT=3000
 
+sql_host=localhost
+sql_user=vibhav
+sql_password=password
+sql_database=ecom
+sql_port=3306
+sql_connectionlimit=30
+mongodb_user=accountUser
+mongodb_password=password
+mongodb_database=ecom
+mongodb_host=localhost
+mongodb_port=27017
+
+
 ```
 
 ## Project Structure
