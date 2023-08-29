@@ -44,7 +44,24 @@ exports.overview = async (req, res, next) => {
         return err
     })
 
-    console.log(dbRes)
+    // console.log(dbRes)
+    if(!dbRes.success) return res.status(400).json(dbRes);
+
+    res.status(200).json(dbRes);
+
+}
+
+exports.delete = async (req, res, next) => {
+    // console.log(req)
+    const _id = req.user._id
+
+    const dbRes = await mongodb.deleteUserdocument({_id:_id}).then((res)=>{
+        return res
+    }).catch((err)=>{
+        return err
+    })
+
+    // console.log(dbRes)
     if(!dbRes.success) return res.status(400).json(dbRes);
 
     res.status(200).json(dbRes);

@@ -8,8 +8,8 @@ router.use(protect)
 
 router.get('/overview',authcontroller.overview)
 router.post('/reset-password',authcontroller.resetPassword)
-router.post('/update-user',authcontroller.update)
-router.delete('/delete-user',authcontroller.login)
+router.post('/update',authcontroller.update)
+router.delete('/delete',authcontroller.delete)
 
 
 module.exports = router

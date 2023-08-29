@@ -111,8 +111,8 @@ const validateToken = async (_id,token) => {
 const deleteUserdocument = async(params)=>{
     return new Promise(async(resolve,reject)=>{
         try {
-            const results = db.dropUser("reportUser1", {w: "majority", wtimeout: 5000})
-            resolve({success:true,response:""})
+            const results = await Allusers.deleteOne({_id : params._id})
+            resolve({success:true,response:results})
         } catch (error) {
             reject({success:false,response:error})
         }
