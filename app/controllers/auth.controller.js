@@ -1,6 +1,7 @@
+const tryCatch = require('../utils/tryCatch.util')
 const mongodb = require('../database/mongo/query.mongo.database')
 
-exports.register = async (req, res, next) => {
+exports.register = tryCatch(async (req, res, next) => {
     const body = req.body
     if(!body || !body._id || !body.name || !body.email || !body.password) return res.status(400).json({success: false, response:"mandatory fields are missing in body payload"});
 
@@ -15,9 +16,9 @@ exports.register = async (req, res, next) => {
 
     res.status(200).json(dbRes);
     
-}
+})
 
-exports.login = async (req, res, next) => {
+exports.login = tryCatch(async (req, res, next) => {
     const body = req.body
     if(!body || !body._id || !body.password) return res.status(400).json({success: false, response:"_id or password is missing"});
 
@@ -32,11 +33,15 @@ exports.login = async (req, res, next) => {
      res.cookie("vib-token",dbRes.token)
     res.status(200).json(dbRes);
 
-}
+})
 
-exports.overview = async (req, res, next) => {
+exports.overview = tryCatch(async (req, res, next) => {
     // console.log(req)
-    const _id = req.user._id
+
+    if(req.params._id==="errorcheck") {
+        throw new Error("_id is missing in request")
+    }
+    const _id = req.params._id
 
     const dbRes = await mongodb.getUserdocument(_id,["_id","name","email","access","status","access","created_date","updated_date"]).then((res)=>{
         return res
@@ -49,9 +54,9 @@ exports.overview = async (req, res, next) => {
 
     res.status(200).json(dbRes);
 
-}
+})
 
-exports.delete = async (req, res, next) => {
+exports.delete = tryCatch(async (req, res, next) => {
     // console.log(req)
     const _id = req.user._id
 
@@ -66,13 +71,13 @@ exports.delete = async (req, res, next) => {
 
     res.status(200).json(dbRes);
 
-}
+})
 
-exports.resetPassword = async (req, res, next) => {
+exports.resetPassword = tryCatch(async (req, res, next) => {
     res.status(200).json({success: true, response:"resetPassword"});
 
-}
+})
 
-exports.update = async (req, res, next) => {
+exports.update = tryCatch(async (req, res, next) => {
     res.status(200).json({success: true, response:"update"});
-}
+})

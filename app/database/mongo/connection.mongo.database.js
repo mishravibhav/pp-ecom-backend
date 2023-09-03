@@ -8,4 +8,5 @@ mongoose.connect(mongoString).then(() => console.log("db connection successfull.
 const user = new mongoose.Schema(userModel);
 const Allusers = mongoose.model('user_profile', user);
 
+
 module.exports = Allusers
