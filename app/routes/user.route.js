@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
 
-const authcontroller = require('../controllers/auth.controller')
+const userController = require('../controllers/user.controller')
 const protect = require('../middleware/authProtector.middleware')
 
 router.use(protect)
 
-router.get('/overview/:_id',authcontroller.overview)
-router.post('/reset-password',authcontroller.resetPassword)
-router.post('/update/:id',authcontroller.update)
-router.delete('/delete:_id',authcontroller.delete)
+router.get('/overview/:_id',userController.overview)
+router.post('/reset-password',userController.resetPassword)
+router.post('/update/:id',userController.update)
+router.delete('/delete:_id',userController.delete)
 
 
 module.exports = router
